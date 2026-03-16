@@ -1,0 +1,394 @@
+#Initial commit
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mellieħa Hub — Community Heart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --sand: #F5EDD8;
+  --terracotta: #C4622D;
+  --terracotta-light: #E8855A;
+  --honey: #D4952A;
+  --deep-blue: #1B3A5C;
+  --sea-blue: #2E6B9E;
+  --limestone: #EDE4D0;
+  --dark-stone: #3D2B1F;
+  --warm-white: #FBF7F0;
+  --muted: #7A6B5A;
+}
+
+body { font-family: 'Crimson Pro', Georgia, serif; background: var(--warm-white); color: var(--dark-stone); }
+
+.hub { max-width: 900px; margin: 0 auto; padding: 0 0 2rem; }
+
+.header {
+  background: var(--deep-blue);
+  padding: 1.5rem 1.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40px;
+  background: var(--warm-white);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+.site-title { color: #fff; font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.1; }
+.site-subtitle { color: rgba(255,255,255,0.65); font-size: 13px; font-family: 'Crimson Pro', serif; letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
+.header-date { color: rgba(255,255,255,0.55); font-size: 13px; font-family: 'Crimson Pro', serif; text-align: right; }
+.header-date strong { display: block; color: rgba(255,255,255,0.85); font-size: 15px; }
+
+.nav { display: flex; gap: 4px; margin-bottom: 40px; flex-wrap: wrap; }
+.nav-btn {
+  background: rgba(255,255,255,0.12);
+  border: 0.5px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.8);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-family: 'Crimson Pro', serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-btn:hover, .nav-btn.active {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: #fff;
+}
+
+.weather-strip {
+  background: var(--limestone);
+  border-bottom: 1px solid #D9CFBA;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+.weather-main { display: flex; align-items: center; gap: 10px; }
+.weather-icon { font-size: 22px; }
+.weather-temp { font-size: 22px; font-weight: 600; color: var(--deep-blue); font-family: 'Playfair Display', serif; }
+.weather-desc { color: var(--muted); font-size: 13px; }
+.weather-details { display: flex; gap: 1.5rem; margin-left: auto; flex-wrap: wrap; }
+.weather-detail { text-align: center; }
+.weather-detail-val { font-weight: 500; color: var(--deep-blue); display: block; font-size: 14px; }
+.weather-detail-lbl { color: var(--muted); font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+.main { padding: 1.5rem; }
+
+.featured-banner {
+  background: var(--deep-blue);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.featured-banner::after {
+  content: '✦';
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 60px;
+  color: rgba(255,255,255,0.07);
+}
+.featured-tag {
+  background: var(--terracotta);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.featured-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.featured-meta { color: rgba(255,255,255,0.6); font-size: 13px; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark-stone);
+  white-space: nowrap;
+}
+.section-line { flex: 1; height: 1px; background: var(--limestone); }
+.section-more { font-size: 13px; color: var(--sea-blue); cursor: pointer; white-space: nowrap; }
+
+.events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.event-card {
+  background: #fff;
+  border: 0.5px solid #DDD5C3;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.event-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.event-card-top { height: 6px; }
+.event-card-top.festa { background: var(--terracotta); }
+.event-card-top.market { background: var(--honey); }
+.event-card-top.sport { background: var(--sea-blue); }
+.event-card-top.culture { background: #6B5B95; }
+.event-body { padding: 12px; }
+.event-date { font-size: 11px; color: var(--terracotta); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 4px; }
+.event-name { font-family: 'Playfair Display', serif; font-size: 15px; line-height: 1.3; margin-bottom: 6px; color: var(--dark-stone); }
+.event-loc { font-size: 12px; color: var(--muted); }
+
+.news-list { display: flex; flex-direction: column; gap: 12px; }
+.news-item {
+  background: #fff;
+  border: 0.5px solid #DDD5C3;
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  display: flex;
+  gap: 14px;
+  transition: transform 0.15s;
+}
+.news-item:hover { transform: translateX(3px); }
+.news-cat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+.news-content { flex: 1; }
+.news-cat { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 3px; }
+.news-headline { font-family: 'Playfair Display', serif; font-size: 16px; line-height: 1.35; color: var(--dark-stone); margin-bottom: 5px; }
+.news-excerpt { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.news-time { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+.biz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+.biz-card {
+  background: #fff;
+  border: 0.5px solid #DDD5C3;
+  border-radius: 10px;
+  padding: 14px 12px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.biz-card:hover { transform: translateY(-2px); }
+.biz-icon { font-size: 22px; margin-bottom: 8px; }
+.biz-name { font-family: 'Playfair Display', serif; font-size: 14px; margin-bottom: 3px; }
+.biz-type { font-size: 12px; color: var(--muted); }
+.biz-badge {
+  display: inline-block;
+  background: #EAF6EE;
+  color: #2A6B3A;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 20px;
+  margin-top: 6px;
+}
+
+.footer {
+  background: var(--deep-blue);
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 13px;
+  margin-top: 2rem;
+}
+.footer strong { color: rgba(255,255,255,0.9); }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+@media (max-width: 600px) {
+  .weather-details { margin-left: 0; }
+  .site-title { font-size: 22px; }
+  .featured-title { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hub">
+
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="site-title">Mellieħa Hub</div>
+        <div class="site-subtitle">Il-qalba tal-komunità · Community Heart</div>
+      </div>
+      <div class="header-date">
+        <strong id="day-name">Monday</strong>
+        <span id="date-str">16 March 2026</span>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn active" onclick="setTab('all')">All</button>
+      <button class="nav-btn" onclick="setTab('events')">Events</button>
+      <button class="nav-btn" onclick="setTab('news')">News</button>
+      <button class="nav-btn" onclick="setTab('businesses')">Businesses</button>
+      <button class="nav-btn" onclick="setTab('weather')">Weather</button>
+    </div>
+  </div>
+
+  <div class="weather-strip">
+    <div class="weather-main">
+      <span class="weather-icon">☀️</span>
+      <span class="weather-temp">19°C</span>
+      <div>
+        <div style="font-weight:500;color:var(--deep-blue);">Sunny with light breeze</div>
+        <div class="weather-desc">Mellieħa Bay · Feels like 18°C</div>
+      </div>
+    </div>
+    <div class="weather-details">
+      <div class="weather-detail"><span class="weather-detail-val">N 14km/h</span><span class="weather-detail-lbl">Wind</span></div>
+      <div class="weather-detail"><span class="weather-detail-val">62%</span><span class="weather-detail-lbl">Humidity</span></div>
+      <div class="weather-detail"><span class="weather-detail-val">22°C</span><span class="weather-detail-lbl">Sea</span></div>
+      <div class="weather-detail"><span class="weather-detail-val">0%</span><span class="weather-detail-lbl">Rain</span></div>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="featured-banner">
+      <div class="featured-tag">This Weekend</div>
+      <div class="featured-title">Mellieħa Spring Farmers' Market<br>returns to Triq il-Marfa</div>
+      <div class="featured-meta">Saturday 21 March · 8:00am – 1:00pm · Free entry</div>
+    </div>
+
+    <!-- ALL TAB -->
+    <div id="tab-all" class="tab-content active">
+
+      <div class="section-header">
+        <div class="section-title">Upcoming Events</div>
+        <div class="section-line"></div>
+        <div class="section-more" onclick="setTab('events')">View all →</div>
+      </div>
+      <div class="events-grid">
+        <div class="event-card"><div class="event-card-top festa"></div><div class="event-body"><div class="event-date">21 Mar</div><div class="event-name">Spring Farmers' Market</div><div class="event-loc">📍 Triq il-Marfa</div></div></div>
+        <div class="event-card"><div class="event-card-top culture"></div><div class="event-body"><div class="event-date">23 Mar</div><div class="event-name">Maltese Folk Music Evening</div><div class="event-loc">📍 Parish Square</div></div></div>
+        <div class="event-card"><div class="event-card-top sport"></div><div class="event-body"><div class="event-date">29 Mar</div><div class="event-name">Mellieħa Bay Clean-Up Walk</div><div class="event-loc">📍 Għadira Beach</div></div></div>
+        <div class="event-card"><div class="event-card-top festa"></div><div class="event-body"><div class="event-date">5 Apr</div><div class="event-name">Good Friday Procession</div><div class="event-loc">📍 Main Street</div></div></div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Latest News</div>
+        <div class="section-line"></div>
+        <div class="section-more" onclick="setTab('news')">View all →</div>
+      </div>
+      <div class="news-list">
+        <div class="news-item"><div class="news-cat-dot" style="background:var(--terracotta);"></div><div class="news-content"><div class="news-cat" style="color:var(--terracotta);">Local Council</div><div class="news-headline">New parking zone approved near Mellieħa Bay Hotel</div><div class="news-excerpt">The local council unanimously approved 45 new public parking spaces to ease summer congestion along the bay road.</div><div class="news-time">2 hours ago</div></div></div>
+        <div class="news-item"><div class="news-cat-dot" style="background:var(--sea-blue);"></div><div class="news-content"><div class="news-cat" style="color:var(--sea-blue);">Environment</div><div class="news-headline">Għadira Nature Reserve sees record bird sightings this spring</div><div class="news-excerpt">BirdLife Malta reports an exceptional migration season with over 40 rare species spotted at the Għadira wetlands.</div><div class="news-time">Yesterday</div></div></div>
+        <div class="news-item"><div class="news-cat-dot" style="background:#6B5B95;"></div><div class="news-content"><div class="news-cat" style="color:#6B5B95;">Heritage</div><div class="news-headline">Restoration work begins on the Mellieħa Air Raid Shelter</div><div class="news-excerpt">Heritage Malta has commenced a six-month restoration project on the WWII shelter, set to reopen in autumn with improved visitor facilities.</div><div class="news-time">2 days ago</div></div></div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Local Businesses</div>
+        <div class="section-line"></div>
+        <div class="section-more" onclick="setTab('businesses')">View all →</div>
+      </div>
+      <div class="biz-grid">
+        <div class="biz-card"><div class="biz-icon">🍕</div><div class="biz-name">Il-Fortizza</div><div class="biz-type">Restaurant · Seafood</div><div class="biz-badge">Open now</div></div>
+        <div class="biz-card"><div class="biz-icon">☕</div><div class="biz-name">Cafe Aurora</div><div class="biz-type">Coffee & Pastizzi</div><div class="biz-badge">Open now</div></div>
+        <div class="biz-card"><div class="biz-icon">🛥️</div><div class="biz-name">Bay Watersports</div><div class="biz-type">Boat & Jet Ski Hire</div><div class="biz-badge">Seasonal</div></div>
+        <div class="biz-card"><div class="biz-icon">🏨</div><div class="biz-name">Mellieħa Holiday</div><div class="biz-type">Hotel & Accommodation</div><div class="biz-badge">Open now</div></div>
+      </div>
+
+    </div>
+
+    <!-- EVENTS TAB -->
+    <div id="tab-events" class="tab-content">
+      <div class="section-header"><div class="section-title">All Events</div><div class="section-line"></div></div>
+      <div class="events-grid">
+        <div class="event-card"><div class="event-card-top festa"></div><div class="event-body"><div class="event-date">21 Mar</div><div class="event-name">Spring Farmers' Market</div><div class="event-loc">📍 Triq il-Marfa</div></div></div>
+        <div class="event-card"><div class="event-card-top culture"></div><div class="event-body"><div class="event-date">23 Mar</div><div class="event-name">Maltese Folk Music Evening</div><div class="event-loc">📍 Parish Square</div></div></div>
+        <div class="event-card"><div class="event-card-top sport"></div><div class="event-body"><div class="event-date">29 Mar</div><div class="event-name">Mellieħa Bay Clean-Up Walk</div><div class="event-loc">📍 Għadira Beach</div></div></div>
+        <div class="event-card"><div class="event-card-top festa"></div><div class="event-body"><div class="event-date">5 Apr</div><div class="event-name">Good Friday Procession</div><div class="event-loc">📍 Main Street</div></div></div>
+        <div class="event-card"><div class="event-card-top market"></div><div class="event-body"><div class="event-date">12 Apr</div><div class="event-name">Easter Sunday Mass</div><div class="event-loc">📍 Mellieħa Parish Church</div></div></div>
+        <div class="event-card"><div class="event-card-top sport"></div><div class="event-body"><div class="event-date">19 Apr</div><div class="event-name">Kayak Race — Mellieħa Bay</div><div class="event-loc">📍 Għadira</div></div></div>
+      </div>
+    </div>
+
+    <!-- NEWS TAB -->
+    <div id="tab-news" class="tab-content">
+      <div class="section-header"><div class="section-title">All News</div><div class="section-line"></div></div>
+      <div class="news-list">
+        <div class="news-item"><div class="news-cat-dot" style="background:var(--terracotta);"></div><div class="news-content"><div class="news-cat" style="color:var(--terracotta);">Local Council</div><div class="news-headline">New parking zone approved near Mellieħa Bay Hotel</div><div class="news-excerpt">The local council unanimously approved 45 new public parking spaces to ease summer congestion along the bay road.</div><div class="news-time">2 hours ago</div></div></div>
+        <div class="news-item"><div class="news-cat-dot" style="background:var(--sea-blue);"></div><div class="news-content"><div class="news-cat" style="color:var(--sea-blue);">Environment</div><div class="news-headline">Għadira Nature Reserve sees record bird sightings this spring</div><div class="news-excerpt">BirdLife Malta reports an exceptional migration season with over 40 rare species spotted at the Għadira wetlands.</div><div class="news-time">Yesterday</div></div></div>
+        <div class="news-item"><div class="news-cat-dot" style="background:#6B5B95;"></div><div class="news-content"><div class="news-cat" style="color:#6B5B95;">Heritage</div><div class="news-headline">Restoration work begins on the Mellieħa Air Raid Shelter</div><div class="news-excerpt">Heritage Malta has commenced a six-month restoration project on the WWII shelter, set to reopen in autumn.</div><div class="news-time">2 days ago</div></div></div>
+        <div class="news-item"><div class="news-cat-dot" style="background:var(--honey);"></div><div class="news-content"><div class="news-cat" style="color:var(--honey);">Roads</div><div class="news-headline">Triq il-Madonna tal-Mellieħa resurfacing complete</div><div class="news-excerpt">Infrastructure Malta has completed the long-awaited road resurfacing on the main approach to the sanctuary.</div><div class="news-time">3 days ago</div></div></div>
+      </div>
+    </div>
+
+    <!-- BUSINESSES TAB -->
+    <div id="tab-businesses" class="tab-content">
+      <div class="section-header"><div class="section-title">Local Businesses</div><div class="section-line"></div></div>
+      <div class="biz-grid">
+        <div class="biz-card"><div class="biz-icon">🍕</div><div class="biz-name">Il-Fortizza</div><div class="biz-type">Restaurant · Seafood</div><div class="biz-badge">Open now</div></div>
+        <div class="biz-card"><div class="biz-icon">☕</div><div class="biz-name">Cafe Aurora</div><div class="biz-type">Coffee & Pastizzi</div><div class="biz-badge">Open now</div></div>
+        <div class="biz-card"><div class="biz-icon">🛥️</div><div class="biz-name">Bay Watersports</div><div class="biz-type">Boat & Jet Ski Hire</div><div class="biz-badge">Seasonal</div></div>
+        <div class="biz-card"><div class="biz-icon">🏨</div><div class="biz-name">Mellieħa Holiday</div><div class="biz-type">Hotel & Accommodation</div><div class="biz-badge">Open now</div></div>
+        <div class="biz-card"><div class="biz-icon">🐟</div><div class="biz-name">Is-Sajjied</div><div class="biz-type">Fresh Fish Market</div><div class="biz-badge">Open now</div></div>
+        <div class="biz-card"><div class="biz-icon">🍦</div><div class="biz-name">Ġelat tal-Bajja</div><div class="biz-type">Ice Cream & Sweets</div><div class="biz-badge">Seasonal</div></div>
+        <div class="biz-card"><div class="biz-icon">🏪</div><div class="biz-name">Cauchi Supermarket</div><div class="biz-type">Groceries & Deli</div><div class="biz-badge">Open now</div></div>
+        <div class="biz-card"><div class="biz-icon">🌿</div><div class="biz-name">Herb & Honey Farm</div><div class="biz-type">Local Produce</div><div class="biz-badge">Open now</div></div>
+      </div>
+    </div>
+
+    <!-- WEATHER TAB -->
+    <div id="tab-weather" class="tab-content">
+      <div class="section-header"><div class="section-title">7-Day Forecast</div><div class="section-line"></div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;">
+        <div style="background:#fff;border:0.5px solid #DDD5C3;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Today</div><div style="font-size:24px;margin-bottom:6px;">☀️</div><div style="font-size:18px;font-weight:600;color:var(--deep-blue);font-family:'Playfair Display',serif;">19°</div><div style="font-size:12px;color:var(--muted);">Low 13°</div></div>
+        <div style="background:#fff;border:0.5px solid #DDD5C3;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Tue</div><div style="font-size:24px;margin-bottom:6px;">⛅</div><div style="font-size:18px;font-weight:600;color:var(--deep-blue);font-family:'Playfair Display',serif;">17°</div><div style="font-size:12px;color:var(--muted);">Low 12°</div></div>
+        <div style="background:#fff;border:0.5px solid #DDD5C3;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Wed</div><div style="font-size:24px;margin-bottom:6px;">🌧️</div><div style="font-size:18px;font-weight:600;color:var(--deep-blue);font-family:'Playfair Display',serif;">15°</div><div style="font-size:12px;color:var(--muted);">Low 11°</div></div>
+        <div style="background:#fff;border:0.5px solid #DDD5C3;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Thu</div><div style="font-size:24px;margin-bottom:6px;">☀️</div><div style="font-size:18px;font-weight:600;color:var(--deep-blue);font-family:'Playfair Display',serif;">18°</div><div style="font-size:12px;color:var(--muted);">Low 13°</div></div>
+        <div style="background:#fff;border:0.5px solid #DDD5C3;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Fri</div><div style="font-size:24px;margin-bottom:6px;">☀️</div><div style="font-size:18px;font-weight:600;color:var(--deep-blue);font-family:'Playfair Display',serif;">20°</div><div style="font-size:12px;color:var(--muted);">Low 14°</div></div>
+        <div style="background:#fff;border:0.5px solid #DDD5C3;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Sat</div><div style="font-size:24px;margin-bottom:6px;">☀️</div><div style="font-size:18px;font-weight:600;color:var(--deep-blue);font-family:'Playfair Display',serif;">21°</div><div style="font-size:12px;color:var(--muted);">Low 14°</div></div>
+        <div style="background:#fff;border:0.5px solid #DDD5C3;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Sun</div><div style="font-size:24px;margin-bottom:6px;">⛅</div><div style="font-size:18px;font-weight:600;color:var(--deep-blue);font-family:'Playfair Display',serif;">19°</div><div style="font-size:12px;color:var(--muted);">Low 13°</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <strong>Mellieħa Hub</strong> · Your community, connected<br>
+    <span style="font-size:11px;margin-top:4px;display:block;">Submit an event or news tip · mellieha.hub@gmail.com</span>
+  </div>
+
+</div>
+
+<script>
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const now = new Date();
+  document.getElementById('day-name').textContent = days[now.getDay()];
+  document.getElementById('date-str').textContent = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+
+  function setTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    const labels = ['all','events','news','businesses','weather'];
+    document.querySelectorAll('.nav-btn')[labels.indexOf(tab)].classList.add('active');
+  }
+</script>
+
+</body>
+</html>
