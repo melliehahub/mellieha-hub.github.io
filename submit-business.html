@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>List Your Business — Mellieħa Hub</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --terracotta: #C4622D; --deep-blue: #1B3A5C; --sea-blue: #2E6B9E;
+  --limestone: #EDE4D0; --dark-stone: #3D2B1F; --warm-white: #FBF7F0;
+  --muted: #7A6B5A; --success: #2A6B3A; --success-bg: #EAF6EE; --danger: #993C1D;
+}
+body { font-family: 'Crimson Pro', Georgia, serif; background: var(--warm-white); color: var(--dark-stone); min-height: 100vh; }
+.header { background: var(--deep-blue); padding: 1.5rem; text-align: center; position: relative; overflow: hidden; }
+.header::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 30px; background: var(--warm-white); clip-path: ellipse(55% 100% at 50% 100%); }
+.header a { color: rgba(255,255,255,0.6); font-size: 13px; text-decoration: none; display: block; margin-bottom: 8px; letter-spacing: 1px; }
+.header a:hover { color: rgba(255,255,255,0.9); }
+.header-title { font-family: 'Playfair Display', serif; font-size: 26px; color: #fff; font-weight: 700; }
+.header-sub { color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 4px; padding-bottom: 30px; }
+.container { max-width: 620px; margin: 2rem auto; padding: 0 1.5rem 3rem; }
+.card { background: #fff; border: 0.5px solid #DDD5C3; border-radius: 14px; padding: 2rem; margin-bottom: 1rem; }
+.card-title { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 1.25rem; color: var(--deep-blue); border-bottom: 1px solid var(--limestone); padding-bottom: 0.75rem; }
+.form-group { margin-bottom: 1.25rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+input, select, textarea { width: 100%; padding: 10px 14px; border: 1px solid #DDD5C3; border-radius: 8px; font-family: 'Crimson Pro', serif; font-size: 16px; color: var(--dark-stone); background: var(--warm-white); outline: none; transition: border-color 0.2s; }
+input:focus, select:focus, textarea:focus { border-color: var(--sea-blue); background: #fff; }
+textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A6B5A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-color: var(--warm-white); padding-right: 36px; }
+.job-block { background: var(--warm-white); border: 1px solid #DDD5C3; border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem; position: relative; }
+.remove-job { position: absolute; top: 10px; right: 12px; background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1; padding: 0; }
+.remove-job:hover { color: var(--danger); }
+.add-job-btn { width: 100%; padding: 10px; background: none; border: 1px dashed #C4B8A8; border-radius: 8px; color: var(--sea-blue); font-family: 'Crimson Pro', serif; font-size: 15px; cursor: pointer; transition: all 0.2s; margin-top: 4px; }
+.add-job-btn:hover { background: var(--limestone); }
+.submit-btn { width: 100%; padding: 14px; background: var(--terracotta); color: #fff; border: none; border-radius: 8px; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.submit-btn:hover { background: #A8521F; }
+.submit-btn:disabled { background: #C4A090; cursor: not-allowed; }
+.success-box { display: none; background: var(--success-bg); border: 1px solid #B8DEC2; border-radius: 12px; padding: 2rem; text-align: center; }
+.success-box.visible { display: block; }
+.success-icon { font-size: 40px; margin-bottom: 10px; }
+.success-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--success); margin-bottom: 8px; }
+.success-text { font-size: 15px; color: #3A7A4A; line-height: 1.6; }
+.error-box { display: none; background: #FEF0EE; border: 1px solid #F5C4B3; border-radius: 8px; padding: 1rem 1.25rem; font-size: 14px; color: var(--danger); margin-top: 1rem; }
+.error-box.visible { display: block; }
+.note { font-size: 13px; color: var(--muted); margin-top: 1rem; text-align: center; line-height: 1.6; }
+.optional-tag { font-size: 11px; color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; margin-left: 4px; }
+@media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html">← Back to Mellieħa Hub</a>
+  <div class="header-title">List Your Business</div>
+  <div class="header-sub">Get discovered by the Mellieħa community — it's free</div>
+</div>
+
+<div class="container">
+  <div id="form-area">
+
+    <div class="card">
+      <div class="card-title">Business Information</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Business Name *</label>
+          <input type="text" id="name" placeholder="e.g. Il-Fortizza">
+        </div>
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="category">
+            <option value="">Select...</option>
+            <option>Restaurant</option>
+            <option>Café & Bar</option>
+            <option>Accommodation</option>
+            <option>Watersports</option>
+            <option>Retail</option>
+            <option>Supermarket</option>
+            <option>Fresh Produce</option>
+            <option>Health & Beauty</option>
+            <option>Services</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea id="description" placeholder="Tell people what you offer, your specialities, opening hours..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Address *</label>
+        <input type="text" id="address" placeholder="e.g. Triq il-Marfa, Mellieħa">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Phone <span class="optional-tag">(optional)</span></label>
+          <input type="tel" id="phone" placeholder="+356 2152 0000">
+        </div>
+        <div class="form-group">
+          <label>Email <span class="optional-tag">(optional)</span></label>
+          <input type="email" id="email" placeholder="info@yourbusiness.com">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Website <span class="optional-tag">(optional)</span></label>
+        <input type="url" id="website" placeholder="https://yourbusiness.com">
+      </div>
+
+      <div class="form-group">
+        <label>Menu / Products / Services <span class="optional-tag">(optional)</span></label>
+        <textarea id="menu" placeholder="List your main dishes, products or services. e.g. Grilled seabass €18, Pasta al-bahar €14..." style="min-height:80px;"></textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Job Openings <span style="font-size:13px;color:var(--muted);font-family:'Crimson Pro',serif;font-weight:400;">(optional — add any current vacancies)</span></div>
+      <div id="jobs-container"></div>
+      <button class="add-job-btn" onclick="addJob()">+ Add a job opening</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Your Details</div>
+      <div class="form-group">
+        <label>Your Name *</label>
+        <input type="text" id="submitted_by" placeholder="Owner or manager name">
+      </div>
+      <button class="submit-btn" id="submit-btn" onclick="submitBusiness()">List My Business →</button>
+      <div class="error-box" id="error-box"></div>
+      <p class="note">Your listing goes live immediately and is free.<br>We reserve the right to remove inappropriate listings.</p>
+    </div>
+
+  </div>
+
+  <div class="success-box" id="success-box">
+    <div class="success-icon">🏪</div>
+    <div class="success-title">You're listed!</div>
+    <div class="success-text">Your business is now live on Mellieħa Hub.<br>Head back to the homepage to see it!</div>
+    <br>
+    <a href="index.html" style="color:var(--sea-blue);font-size:15px;">← Back to Mellieħa Hub</a>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://xwistwtnmkixbbmsnfbf.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3aXN0d3RubWtpeGJibXNuZmJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2OTExMjYsImV4cCI6MjA4OTI2NzEyNn0.QVk4wSI1eoF4Ya7uZzs6aZfKdMBx2g-DjqsY2RvyAHI';
+  let jobCount = 0;
+
+  function addJob() {
+    jobCount++;
+    const id = jobCount;
+    const div = document.createElement('div');
+    div.className = 'job-block';
+    div.id = 'job-' + id;
+    div.innerHTML = `
+      <button class="remove-job" onclick="removeJob(${id})">×</button>
+      <div class="form-group">
+        <label>Job Title *</label>
+        <input type="text" id="job-title-${id}" placeholder="e.g. Waiter, Chef, Receptionist">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="job-desc-${id}" placeholder="What does the role involve? Full time / part time? Any requirements?" style="min-height:70px;"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label>Contact Email for Applications</label>
+        <input type="email" id="job-email-${id}" placeholder="jobs@yourbusiness.com">
+      </div>`;
+    document.getElementById('jobs-container').appendChild(div);
+  }
+
+  function removeJob(id) {
+    const el = document.getElementById('job-' + id);
+    if (el) el.remove();
+  }
+
+  function getJobs() {
+    const jobs = [];
+    document.querySelectorAll('.job-block').forEach(block => {
+      const id = block.id.replace('job-', '');
+      const title = document.getElementById('job-title-' + id)?.value.trim();
+      const desc = document.getElementById('job-desc-' + id)?.value.trim();
+      const email = document.getElementById('job-email-' + id)?.value.trim();
+      if (title) jobs.push({ title, description: desc || '', contact_email: email || '' });
+    });
+    return jobs;
+  }
+
+  async function submitBusiness() {
+    const btn = document.getElementById('submit-btn');
+    const errorBox = document.getElementById('error-box');
+    errorBox.classList.remove('visible');
+
+    const name = document.getElementById('name').value.trim();
+    const category = document.getElementById('category').value;
+    const description = document.getElementById('description').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const website = document.getElementById('website').value.trim();
+    const menu = document.getElementById('menu').value.trim();
+    const submitted_by = document.getElementById('submitted_by').value.trim();
+
+    if (!name || !category || !description || !address || !submitted_by) {
+      errorBox.textContent = 'Please fill in all required fields.';
+      errorBox.classList.add('visible');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    try {
+      const headers = { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=representation' };
+
+      const bizRes = await fetch(`${SUPABASE_URL}/rest/v1/businesses`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ name, category, description, address, phone, email, website, menu, submitted_by, status: 'approved' })
+      });
+
+      if (!bizRes.ok) {
+        const err = await bizRes.json();
+        throw new Error(err.message || 'Failed to submit');
+      }
+
+      const bizData = await bizRes.json();
+      const bizId = bizData[0]?.id;
+
+      const jobs = getJobs();
+      if (jobs.length > 0 && bizId) {
+        await Promise.all(jobs.map(job =>
+          fetch(`${SUPABASE_URL}/rest/v1/jobs`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ ...job, business_id: String(bizId), business_name: name, submitted_by, status: 'approved' })
+          })
+        ));
+      }
+
+      document.getElementById('form-area').style.display = 'none';
+      document.getElementById('success-box').classList.add('visible');
+
+    } catch(e) {
+      errorBox.textContent = 'Something went wrong: ' + e.message;
+      errorBox.classList.add('visible');
+      btn.disabled = false;
+      btn.textContent = 'List My Business →';
+    }
+  }
+</script>
+</body>
+</html>

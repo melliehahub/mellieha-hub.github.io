@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit News — Mellieħa Hub</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --terracotta: #C4622D;
+  --deep-blue: #1B3A5C;
+  --sea-blue: #2E6B9E;
+  --limestone: #EDE4D0;
+  --dark-stone: #3D2B1F;
+  --warm-white: #FBF7F0;
+  --muted: #7A6B5A;
+  --success: #2A6B3A;
+  --success-bg: #EAF6EE;
+  --danger: #993C1D;
+}
+body { font-family: 'Crimson Pro', Georgia, serif; background: var(--warm-white); color: var(--dark-stone); min-height: 100vh; }
+.header { background: var(--deep-blue); padding: 1.5rem; text-align: center; position: relative; overflow: hidden; }
+.header::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 30px; background: var(--warm-white); clip-path: ellipse(55% 100% at 50% 100%); }
+.header a { color: rgba(255,255,255,0.6); font-size: 13px; text-decoration: none; display: block; margin-bottom: 8px; letter-spacing: 1px; }
+.header a:hover { color: rgba(255,255,255,0.9); }
+.header-title { font-family: 'Playfair Display', serif; font-size: 26px; color: #fff; font-weight: 700; }
+.header-sub { color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 4px; padding-bottom: 30px; }
+.container { max-width: 600px; margin: 2rem auto; padding: 0 1.5rem 3rem; }
+.card { background: #fff; border: 0.5px solid #DDD5C3; border-radius: 14px; padding: 2rem; }
+.form-group { margin-bottom: 1.25rem; }
+label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+input, select, textarea { width: 100%; padding: 10px 14px; border: 1px solid #DDD5C3; border-radius: 8px; font-family: 'Crimson Pro', serif; font-size: 16px; color: var(--dark-stone); background: var(--warm-white); transition: border-color 0.2s; outline: none; }
+input:focus, select:focus, textarea:focus { border-color: var(--sea-blue); background: #fff; }
+textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
+select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A6B5A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-color: var(--warm-white); padding-right: 36px; }
+.submit-btn { width: 100%; padding: 14px; background: var(--deep-blue); color: #fff; border: none; border-radius: 8px; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
+.submit-btn:hover { background: #152E4A; }
+.submit-btn:disabled { background: #8899AA; cursor: not-allowed; }
+.success-box { display: none; background: var(--success-bg); border: 1px solid #B8DEC2; border-radius: 10px; padding: 1.5rem; text-align: center; margin-top: 1rem; }
+.success-box.visible { display: block; }
+.success-icon { font-size: 36px; margin-bottom: 8px; }
+.success-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--success); margin-bottom: 6px; }
+.success-text { font-size: 15px; color: #3A7A4A; }
+.error-box { display: none; background: #FEF0EE; border: 1px solid #F5C4B3; border-radius: 10px; padding: 1rem 1.25rem; font-size: 14px; color: var(--danger); margin-top: 1rem; }
+.error-box.visible { display: block; }
+.note { font-size: 13px; color: var(--muted); margin-top: 1rem; text-align: center; line-height: 1.6; }
+.divider { height: 1px; background: var(--limestone); margin: 1.5rem 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html">← Back to Mellieħa Hub</a>
+  <div class="header-title">Submit a News Tip</div>
+  <div class="header-sub">Share what's happening in Mellieħa</div>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div id="form-area">
+
+      <div class="form-group">
+        <label>Headline *</label>
+        <input type="text" id="headline" placeholder="e.g. New café opens on Triq il-Marfa" maxlength="120">
+      </div>
+
+      <div class="form-group">
+        <label>Category *</label>
+        <select id="category">
+          <option value="">Select...</option>
+          <option value="Local Council">Local Council</option>
+          <option value="Environment">Environment</option>
+          <option value="Heritage">Heritage</option>
+          <option value="Roads">Roads</option>
+          <option value="Business">Business</option>
+          <option value="Community">Community</option>
+          <option value="Safety">Safety</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Summary *</label>
+        <textarea id="excerpt" placeholder="Give a short summary of the news in 2-3 sentences..."></textarea>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="form-group">
+        <label>Your Name *</label>
+        <input type="text" id="submitted_by" placeholder="Your name or organisation">
+      </div>
+
+      <button class="submit-btn" id="submit-btn" onclick="submitNews()">Submit News Tip →</button>
+      <div class="error-box" id="error-box"></div>
+      <p class="note">All submissions are reviewed before going live.<br>We'll aim to approve within 24 hours.</p>
+
+    </div>
+
+    <div class="success-box" id="success-box">
+      <div class="success-icon">📰</div>
+      <div class="success-title">News tip submitted!</div>
+      <div class="success-text">Thanks for sharing. Your story will appear on Mellieħa Hub once approved — usually within 24 hours.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://xwistwtnmkixbbmsnfbf.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3aXN0d3RubWtpeGJibXNuZmJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2OTExMjYsImV4cCI6MjA4OTI2NzEyNn0.QVk4wSI1eoF4Ya7uZzs6aZfKdMBx2g-DjqsY2RvyAHI';
+
+  async function submitNews() {
+    const btn = document.getElementById('submit-btn');
+    const errorBox = document.getElementById('error-box');
+    errorBox.classList.remove('visible');
+
+    const headline = document.getElementById('headline').value.trim();
+    const category = document.getElementById('category').value;
+    const excerpt = document.getElementById('excerpt').value.trim();
+    const submitted_by = document.getElementById('submitted_by').value.trim();
+
+    if (!headline || !category || !excerpt || !submitted_by) {
+      errorBox.textContent = 'Please fill in all fields before submitting.';
+      errorBox.classList.add('visible');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/news`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ headline, category, excerpt, submitted_by, status: 'pending' })
+      });
+
+      if (res.ok) {
+        document.getElementById('form-area').style.display = 'none';
+        document.getElementById('success-box').classList.add('visible');
+      } else {
+        const err = await res.json();
+        errorBox.textContent = 'Something went wrong: ' + (err.message || 'Please try again.');
+        errorBox.classList.add('visible');
+        btn.disabled = false;
+        btn.textContent = 'Submit News Tip →';
+      }
+    } catch(e) {
+      errorBox.textContent = 'Could not connect. Please check your internet and try again.';
+      errorBox.classList.add('visible');
+      btn.disabled = false;
+      btn.textContent = 'Submit News Tip →';
+    }
+  }
+</script>
+</body>
+</html>
